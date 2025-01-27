@@ -138,7 +138,7 @@
 						<image>openjdk:21</image>
 					</from>
 					<to>
-						<image>registry.hub.docker.com/kabovblg/apigateway</image>
+						<image>${REPO_URL}/apigateway</image>
 						<tags>${project.version}</tags>
 					</to>
 				</configuration>
