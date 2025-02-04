@@ -30,7 +30,7 @@ node {
             clusterName: env.CLUSTER,
             location: env.ZONE,
             manifestPattern: 'kubernetes/apigateway-deployment.yaml',
-            credentialsId: gcp,
+            credentialsId: env.PROJECT_ID,
             verifyDeployments: true])
     }
 }
