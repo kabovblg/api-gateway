@@ -10,6 +10,11 @@ node {
     }
     stage('Build and Push Image') {
         withCredentials([file(credentialsId: 'gcp', variable: 'GC_KEY')]) {
+            sh 'export GOOGLE_APPLICATION_CREDENTIALS=${GC_KEY}'
+            sh 'gcloud auth activate-service-account --key-file=${GC_KEY}'
+            sh 'gcloud auth list'
+        }
+        withCredentials([file(credentialsId: 'gcp', variable: 'GC_KEY')]) {
             echo"TEST:::${GC_KEY}"
             sh("ls -l ${GC_KEY}")
             sh("cat ${GC_KEY}")
