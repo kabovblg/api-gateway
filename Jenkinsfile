@@ -27,14 +27,19 @@ node {
             sh "${mvnCMD} clean install jib:build -DREPO_URL=${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}"
         }
     }
-    stage('Deploy') {
-        sh "sed -i 's|IMAGE_URL|${repourl}|g' kubernetes/apigateway-deployment.yaml"
-        step([$class: 'KubernetesEngineBuilder',
-            projectId: env.PROJECT_ID,
-            clusterName: env.CLUSTER,
-            location: env.ZONE,
-            manifestPattern: 'kubernetes/apigateway-deployment.yaml',
-            credentialsId: env.PROJECT_ID,
-            verifyDeployments: true])
-    }
+//     stage('Deploy') {
+//         sh "sed -i 's|IMAGE_URL|${repourl}|g' kubernetes/apigateway-deployment.yaml"
+//         step([$class: 'KubernetesEngineBuilder',
+//             projectId: env.PROJECT_ID,
+//             clusterName: env.CLUSTER,
+//             location: env.ZONE,
+//             manifestPattern: 'kubernetes/apigateway-deployment.yaml',
+//             credentialsId: env.PROJECT_ID,
+//             verifyDeployments: true])
+//     }
+stage('Deploy') {
+    sh 'test -f kubernetes/apigateway-deployment.yaml && echo "File exists!" || echo "Missing file!"'
+    sh "sed -i 's|IMAGE_URL|${repourl}|g' kubernetes/apigateway-deployment.yaml"
+}
+
 }
