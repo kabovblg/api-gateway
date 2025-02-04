@@ -139,7 +139,7 @@
 					</from>
 					<to>
 						<image>${REPO_URL}/apigateway</image>
-						<tags>${project.version}</tags>
+						<tags>${3.3.1}</tags>
 					</to>
 				</configuration>
 			</plugin>
