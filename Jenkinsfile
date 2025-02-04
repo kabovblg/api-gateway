@@ -11,8 +11,8 @@ node {
     stage('Build and Push Image') {
         withCredentials([file(credentialsId: 'gcp', variable: 'GC_KEY')]) {
             echo"TEST:::${GC_KEY}"
-            ls -l ${GC_KEY}
-            cat ${GC_KEY}
+            sh("ls -l ${GC_KEY}")
+            sh("cat ${GC_KEY}")
             sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
             sh 'gcloud auth configure-docker  us-west4-docker.pkg.dev'
             sh "${mvnCMD} clean install jib:build -DREPO_URL=${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}"
