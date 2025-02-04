@@ -5,8 +5,12 @@ node {
     stage('checkout') {
             checkout([$class: 'GitSCM',
             branches: [[name: '*/main']],
-            extensions: [],
+            extensions: [[$class: 'CleanCheckout']],
             userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/kabovblg/api-gateway.git']]])
+    }
+    stage('Verify Checkout') {
+        sh 'ls -l'
+        sh 'ls -l kubernetes/'
     }
     stage('Build and Push Image') {
         withCredentials([file(credentialsId: 'gcp', variable: 'GC_KEY')]) {
